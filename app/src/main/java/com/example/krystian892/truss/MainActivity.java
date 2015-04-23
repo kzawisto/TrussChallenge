@@ -54,8 +54,13 @@ public class MainActivity extends Activity implements OnClickListener{
             Intent i2 = new Intent(this, MainActivity2.class);
 			startActivity(i2);
 			break;
-		// More buttons go here (if any) ...
+            case R.id.continue_button:
+                Intent i3 = new Intent(this, FileLoadActivity.class);
+                startActivity(i3);
+            break;
+            // More buttons go here (if any) ...
 		}
+
 
 	}
 

@@ -2,15 +2,16 @@ package com.example.krystian892.truss;
 
 import com.example.krystian892.truss.calculations.PointD;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by krystian892 on 3/1/15.
  */
-public class Joint extends PointD {
-    ArrayList<Integer> neighbours;
-    ArrayList<Joint> pointerNeighbours;
-    int supports=0;
+public class Joint extends PointD implements Serializable {
+    transient ArrayList<Integer>  neighbours;
+    transient ArrayList<Joint> pointerNeighbours;
+    transient int supports=0;
     public Joint(double _x, double _y) {
         super(_x, _y);
     }

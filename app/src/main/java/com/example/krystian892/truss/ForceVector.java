@@ -2,9 +2,11 @@ package com.example.krystian892.truss;
 
 import com.example.krystian892.truss.calculations.PointD;
 
-public class ForceVector extends Vector{
+import java.io.Serializable;
+
+public class ForceVector extends Vector implements Serializable {
 	static final double scale = 10;
-	int jointId;
+	transient int jointId;
 	ForceVector(PointD anchor, PointD end){
 		super(anchor, end);
 	}
