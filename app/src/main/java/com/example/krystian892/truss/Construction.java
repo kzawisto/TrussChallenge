@@ -136,7 +136,7 @@ public class Construction {
 	public void simulation() {
 		// TODO Auto-generated method stub
 		calculationsStarted = true;
-        int booo;
+
 		computeJoints();
       //  if(jointTest())
         Toast.makeText(ActivitySingleton.getActivity(), "Calculating.", Toast.LENGTH_SHORT).show();
