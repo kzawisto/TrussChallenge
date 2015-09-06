@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.example.krystian892.truss.calculations.Point;
 import com.example.krystian892.truss.calculations.PointD;
 
+import android.util.Log;
 import android.view.MotionEvent;
 
 public class OnScreenMenu implements Menu_OnTouch{
@@ -12,19 +13,26 @@ public class OnScreenMenu implements Menu_OnTouch{
 	boolean shown = true, erasingMode = false;
 	double buttonHeightSpace = 1.2;
 	Point corner = new Point(0,0);
-	static final int RODS = 1, SUPPORT = 2,FORCES = 3, ERASE = 4 ,NON_CLICK_ACTION = -2;
+	int RODS = 1, SUPPORT = 2,FORCES = 3, CALCULATING=5,ERASE = 6 ,NON_CLICK_ACTION = -2;
+    OnScreenMenu(int _buttonHeight,int _buttonWidth,String s){
+        buttonHeight =_buttonHeight;
+        buttonWidth = _buttonWidth;
+    }
 	OnScreenMenu(int _buttonHeight, int _buttonWidth){
 		buttonHeight =_buttonHeight;
 		buttonWidth = _buttonWidth;
 		addItem("RODS");
 		addItem("SUPPORT");
 		addItem("FORCES");
-		addItem("ERASE");
-
+        addItem("OBSTACLE");
 		addItem("COMPUTE");
+        addItem("ERASE");
 		addItem("UNDO");
 		addItem("REDO");
+        addItem("SAVE");
+        addItem("LOAD");
 	}
+    public int eraseID(){return 6;}
 	public boolean isVisible()	{
 		return shown;
 	}
@@ -71,7 +79,7 @@ public class OnScreenMenu implements Menu_OnTouch{
 				if(r == 1) cycleMenuVisibility();
 				else {
 					if(r-1 == ERASE)  switchErasing();
-					else if(r != 0 && r < 5) mode = r - 1;
+					else if(r != 0 && r < 7) mode = r - 1;
 				}
                 return r;
 			}
@@ -95,4 +103,41 @@ public class OnScreenMenu implements Menu_OnTouch{
 	public void switchErasing(){
         erasingMode = !erasingMode;
     }
+}
+
+class GameOnScreenMenu extends OnScreenMenu{
+    int ERASE;
+    GameOnScreenMenu(int bwidth, int bheight){
+        super(bwidth,bheight,"");
+        ERASE=3;
+        addItem("RODS");
+        addItem("TEST");
+        addItem("ERASE");
+        addItem("UNDO");
+        addItem("REDO");
+        addItem("SAVE");
+        addItem("LOAD");
+    }
+    public int onTouchOnMenu(MotionEvent event, int action) {
+        PointD p = new PointD(event.getX(), event.getY());
+        int r = pointInside(p);
+        if(action == MotionEvent.ACTION_DOWN) {
+            if(r == 1) {
+                cycleMenuVisibility();
+                return r;
+            }
+            if(r==2){  mode =1;return 2;}
+            if(r==3){mode = 2;return 6; }
+            if(r==4) {
+                switchErasing();
+                return 7;
+            }
+            if(r >=5)return r+3;
+        }
+        if(r == 0) return 0;
+        return NON_CLICK_ACTION;
+
+    }
+
+    public int eraseID(){return 3;}
 }

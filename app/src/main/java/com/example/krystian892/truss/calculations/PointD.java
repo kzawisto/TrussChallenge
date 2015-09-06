@@ -1,11 +1,13 @@
 package com.example.krystian892.truss.calculations;
 
 
+import java.io.Serializable;
+
 import static java.lang.Math.*;
 
-public class PointD {
+public class PointD implements Serializable{
 	public double x,y;
-    static final double eps = 1e-2;
+    transient static final double eps = 1e-2;
 	public PointD(double _x, double _y) {
 		x = _x;
 		y = _y;
@@ -18,6 +20,9 @@ public class PointD {
 		x = _x;
 		y = _y;
 	}
+    public String toString(){
+        return "(" + x +", " + y+")";
+    }
 	public PointD minus(PointD p)	{
 		return new PointD(x - p.x, y - p.y);
 	}
@@ -30,5 +35,13 @@ public class PointD {
     public boolean comp(PointD p) {
         if(dist(p) < eps) return true;
         else return false;
+    }
+    public double cross(PointD p){
+        return x*p.y - y*p.x;
+    }
+
+    public String toStringInt() {
+
+            return "(" + (int)x +", " + (int)y+")";
     }
 }

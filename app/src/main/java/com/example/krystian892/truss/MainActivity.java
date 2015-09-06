@@ -3,6 +3,7 @@ package com.example.krystian892.truss;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +29,11 @@ public class MainActivity extends Activity implements OnClickListener{
 		exitButton.setOnClickListener((OnClickListener) this);
 		View prefsButton = findViewById(R.id.prefs_button);
 		prefsButton.setOnClickListener((OnClickListener) this);
+        View gameButton = findViewById(R.id.game_button);
+        gameButton.setOnClickListener((OnClickListener) this);
+
+        View loadGameButton = findViewById(R.id.loadgame_button);
+        loadGameButton.setOnClickListener((OnClickListener) this);
 
 	}
 	
@@ -39,10 +45,11 @@ public class MainActivity extends Activity implements OnClickListener{
 	}
 
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
+        Intent i;
+        // TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.about_button:
-		Intent i = new Intent(this, About.class);
+		i = new Intent(this, About.class);
 		startActivity(i);
 		break;
 		case R.id.prefs_button:
@@ -58,6 +65,17 @@ public class MainActivity extends Activity implements OnClickListener{
                 Intent i3 = new Intent(this, FileLoadActivity.class);
                 startActivity(i3);
             break;
+            case R.id.game_button:
+             //   Log.wtf("BOO","");
+                Intent i4 = new Intent(this,GameSelectActivity.class);
+                overridePendingTransition(0, 0);
+                startActivity(i4);
+                break;
+            case R.id.loadgame_button:
+                Intent i5 = new Intent(this,LoadGameActivity.class);
+                overridePendingTransition(0, 0);
+                startActivity(i5);
+                break;
             // More buttons go here (if any) ...
 		}
 

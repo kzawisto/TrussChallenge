@@ -38,6 +38,9 @@ android:text="@string/exit_label" />
 <Button
 android:id="@+id/prefs_button"
 android:text="@string/prefs_label" />
+    <Button
+        android:id="@+id/game_button"
+        android:text="New game" />
 </TableRow>
 </TableLayout>
 </LinearLayout>

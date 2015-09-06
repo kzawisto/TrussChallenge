@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
@@ -33,13 +32,24 @@ public class MainActivity2 extends ActionBarActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
+                | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
-        fragment= new ArticleFragment();
-    GameView view = null;
+        //fragment= new ArticleFragment();
+        if (savedInstanceState != null) {
+            //Restore the fragment's instance
+            fragment = (ArticleFragment) getSupportFragmentManager().getFragment(
+                    savedInstanceState, "Fragment");
+
+        }
+        else fragment= new ArticleFragment();
+    MainEditorView view = null;
         // Set up the drawer.
+
        fixSettings();
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
@@ -118,5 +128,22 @@ public class MainActivity2 extends ActionBarActivity
      * A placeholder fragment containing a simple view.
      */
 
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+//Save the fragment's instance
+        getSupportFragmentManager().putFragment(outState, "Fragment", fragment);
+
+
+
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // Don't hang around.
+        //finish();
+    }
 
 }

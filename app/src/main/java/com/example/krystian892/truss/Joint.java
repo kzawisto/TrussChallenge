@@ -1,5 +1,7 @@
 package com.example.krystian892.truss;
 
+import android.util.Log;
+
 import com.example.krystian892.truss.calculations.PointD;
 
 import java.io.Serializable;
@@ -10,22 +12,32 @@ import java.util.ArrayList;
  */
 public class Joint extends PointD implements Serializable {
     transient ArrayList<Integer>  neighbours;
-    transient ArrayList<Joint> pointerNeighbours;
+    transient ArrayList<PointD> copies;
     transient int supports=0;
+    transient PointD displacement = new PointD(0,0);
     public Joint(double _x, double _y) {
         super(_x, _y);
     }
     public Joint(PointD prototype){
         super(prototype.x, prototype.y);
         neighbours = new ArrayList<Integer>();
-        pointerNeighbours = new ArrayList<Joint>();
+        copies = new ArrayList<PointD>();
     }
 
     public void addNeighbour(int j) {
         neighbours.add(j);
     }
-    //void setSupport(){
-     //   support = true;
+    public void addCopy(PointD j) { copies.add(j);}
+    public  void displaceCopies(double d){
+
+        for(PointD p: copies){
+            //Log.wtf("Old was", ":" + p.x + "  " + p.y);
+            p.set(p.x +displacement.x * d,p.y+displacement.y*d);
+
+          //  Log.wtf("New is", ":" + p.x + "  " + p.y);
+        }
+    }
+    //void setSupprt = true;
     //}
 }
 class GraphJoint extends Joint{

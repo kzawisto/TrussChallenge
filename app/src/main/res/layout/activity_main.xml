@@ -17,6 +17,7 @@ android:layout_gravity="center" >
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:background="@drawable/button1"
         android:gravity="center"
         android:text="@string/new_game_label"
         />
@@ -26,7 +27,8 @@ android:layout_gravity="center" >
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-      
+
+        android:background="@drawable/button1"
         android:text="@string/continue_label"
          />
 
@@ -35,7 +37,8 @@ android:layout_gravity="center" >
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        
+
+        android:background="@drawable/button1"
         android:text="@string/about_label" />
 
     <Button
@@ -43,13 +46,33 @@ android:layout_gravity="center" >
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-       
+
+        android:background="@drawable/button1"
         android:text="@string/exit_label" />
     <Button
         android:id="@+id/prefs_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+
+        android:background="@drawable/button1"
         android:text="@string/prefs_label" />
+    <Button
+        android:id="@+id/game_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+
+        android:background="@drawable/button1"
+        android:text="New game" />
+    <Button
+        android:id="@+id/loadgame_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+
+        android:background="@drawable/button1"
+        android:text="Load game" />
+
 </LinearLayout>
 </LinearLayout>

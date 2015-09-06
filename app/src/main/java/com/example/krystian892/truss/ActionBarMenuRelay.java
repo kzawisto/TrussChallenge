@@ -7,30 +7,30 @@ package com.example.krystian892.truss;
 import com.example.truss2.R;
 public class ActionBarMenuRelay {
     static public enum message {CLICK, DOWN, UP};
-    static GameView gm =null;
+    static MainEditorView gm =null;
     boolean erasing = false;
 
-    static void setGm(GameView gm1) {
+    static void setGm(MainEditorView gm1) {
         gm = gm1;
     }
     static void sendMessage(int controlId) {
         if(gm == null) return;
 
         if(controlId == R.id.action_eraser) {
-                gm.menu.switchMode(OnScreenMenu.ERASE);
+                gm.menu.switchMode(gm.menu.ERASE);
                 gm.onTouch.eMode.setState(gm.onTouch.eMode.ERASE);
         }
         if(controlId == R.id.action_rod){
-                gm.menu.switchMode(OnScreenMenu.RODS);
+                gm.menu.switchMode(gm.menu.RODS);
                 gm.onTouch.eMode.setState(gm.onTouch.eMode.RODS);
         }
 
         if(controlId == R.id.action_force){
-            gm.menu.switchMode(OnScreenMenu.FORCES);;
+            gm.menu.switchMode(gm.menu.FORCES);;
             gm.onTouch.eMode.setState(gm.onTouch.eMode.FORCES);
         }
         if(controlId == R.id.action_support){
-            gm.menu.switchMode(OnScreenMenu.SUPPORT);;
+            gm.menu.switchMode(gm.menu.SUPPORT);;
             gm.onTouch.eMode.setState(gm.onTouch.eMode.SUPPORTS);
         }
         if(controlId == R.id.action_simulate){

@@ -1,8 +1,12 @@
 package com.example.krystian892.truss;
 
-import com.example.krystian892.truss.calculations.PointD;
+import android.util.Log;
 
-public class Vector {
+import com.example.krystian892.truss.calculations.*;
+
+import java.io.Serializable;
+
+public class Vector implements Serializable {
 	PointD start, end;
 	
 	Vector(PointD _start, PointD _end)	{
@@ -29,4 +33,18 @@ public class Vector {
 	double length(){
 		return Math.sqrt((end.x - start.x) * (end.x - start.x) + (end.y - start.y) * (end.y - start.y));
 	}
+    boolean testIntersection(Vector v){
+
+            PointD r1 = end.minus(start);
+            PointD s1 = v.end.minus(v.start);
+            double c1 = r1.cross(v.end.minus(start)), c2 = r1.cross(v.start.minus(start));
+            if(c1*c2 <=0)
+            {
+                double c3 = s1.cross(end.minus(v.start)), c4 = s1.cross(start.minus(v.start));
+                if(c3*c4 <= 0) return true;
+            }
+            return false;
+
+
+    }
 }

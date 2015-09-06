@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Sudoku1</string>
+    <string name="app_name">Truss Calculator</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_main">Sudoku Game</string>
-    <string name="new_game_label">New Game</string>
+    <string name="title_main">Truss</string>
+    <string name="new_game_label">New truss</string>
     <string name="about_label">About</string>
     <string name="exit_label">Exit</string>
-    <string name="continue_label">Continue</string>
+    <string name="continue_label">Load a file</string>
+    <string name="delete_label">Delete a file</string>
     <string name="about_text">Sudoku is logic-based number game.</string>
     <string name="about_title">About Sudoku</string>
     <string name="hints_title">Hints</string>
@@ -25,5 +26,10 @@
     <string name="action_bar_summary">Show action bar</string>
     <string name="status_bar_title">Status bar</string>
     <string name="status_bar_summary">Show status bar</string>
+    <string name="confirm_delete">Do you want to delete </string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

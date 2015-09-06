@@ -1,80 +1,94 @@
 package com.example.krystian892.truss;
 
+import android.util.Log;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
 import com.example.krystian892.truss.Construction.ArrayListOfJoints;
 import com.example.krystian892.truss.calculations.PointD;
-public class CommandQueue {
+public class CommandQueue implements Serializable{
 	LinkedList<Command> list;
-	ListIterator<Command> it;
+	transient ListIterator<Command> it;
+    Command now = null;
 	static int maxSize = 1000;
 	CommandQueue(){
 		list = new LinkedList<Command>();
 		it = list.listIterator();
 	}
 	void issueCommand(Command c){
+
 		c.execute();
-		it.add(c);
-		if(list.size() > maxSize)
-			if(it.hasNext()) list.removeLast();
-			else list.removeFirst();
+       it.add(c);
+        now = c;
+		if(list.size() > maxSize) {
+
+           // Log.wtf("Remove","Remove");
+            if (it.hasNext()) list.removeLast();
+            else list.removeFirst();
+        }
 	}
 	void undo(){
+
 		if(it.hasPrevious()){
-			it.previous().undo();
+
+            (now= it.previous()).undo();
 		}
 	}
 	void redo(){
+      //  Log.wtf("Boo", "boo");
 		if(it.hasNext()){
-			it.next().execute();
+            (now=it.next()).execute();
 		}
 	}
+    void restoreIterator(){
+        if(now !=null)
+            it=list.listIterator(list.lastIndexOf(now));
+
+
+    }
+
+
 	
 }
-abstract class Command{
+abstract class Command implements  Serializable{
 	abstract void undo();
 	abstract void execute();
 }
 
-class RodDrawCommand extends Command{
-	ArrayList<Rod> rods;
+class RodDrawCommand extends Command implements  Serializable{
+	//ArrayList<Rod> rods;
+    Construction constr;
 	Rod r;
-	RodDrawCommand(ArrayList<Rod> rods, Rod r){
-		this.rods = rods;
+	RodDrawCommand(Construction constr, Rod r){
+		this.constr= constr;
 		this.r = r;
 	}
 	@Override
 	void undo() {
-		rods.remove(r);
-		
+		constr.removeRod(r);
 	}
 	@Override
 	void execute() {
-		rods.add(r);
+		constr.addRod(r);
 	}
 	
 }
-class RodEraseCommand extends Command{
+class RodEraseCommand extends RodDrawCommand implements  Serializable{
 	ArrayList<Rod> rods;
 	Rod r;
-	RodEraseCommand(ArrayList<Rod> rods, Rod r){
-		this.rods = rods;
-		this.r = r;
+	RodEraseCommand(Construction constr, Rod r){
+		super(constr,r);
 	}
-	@Override
-	void execute() {
-		rods.remove(r);
-		
-	}
-	@Override
-	void undo() {
-		rods.add(r);
+	@Override void execute() {super.undo();}
+	@Override void undo() {
+		super.execute();
 	}
 }
 
-class SupportPlaceCommand extends Command{
+class SupportPlaceCommand extends Command implements  Serializable{
 	ArrayListOfJoints support;
     Joint s;
 	public SupportPlaceCommand(ArrayListOfJoints support, PointD s) {
@@ -92,7 +106,7 @@ class SupportPlaceCommand extends Command{
 		support.add(s);
 	}
 }
-class SupportRemoveCommand extends Command{
+class SupportRemoveCommand extends Command implements  Serializable{
 	ArrayListOfJoints support;
     Joint s;
 	public SupportRemoveCommand(ArrayListOfJoints support, PointD s) {
@@ -109,7 +123,7 @@ class SupportRemoveCommand extends Command{
 		support.removePoint(s);
 	}
 }
-class ForceVectorDrawCommand extends Command{
+class ForceVectorDrawCommand extends Command implements  Serializable{
 	ArrayList<ForceVector> rods;
 	ForceVector r;
 	ForceVectorDrawCommand(ArrayList<ForceVector> rods, ForceVector r){
@@ -127,7 +141,7 @@ class ForceVectorDrawCommand extends Command{
 	}
 	
 }
-class ForceVectorEraseCommand extends Command{
+class ForceVectorEraseCommand extends Command implements  Serializable{
 	ArrayList<ForceVector> rods;
 	ForceVector r;
 	ForceVectorEraseCommand(ArrayList<ForceVector> rods, ForceVector r){
@@ -143,4 +157,39 @@ class ForceVectorEraseCommand extends Command{
 	void undo() {
 		rods.add(r);
 	}
+}
+class ObstacleDrawCommand extends Command implements Serializable{
+    ArrayList<Obstacle> obstacles;
+    Obstacle o;
+    ObstacleDrawCommand(ArrayList<Obstacle> obstacles, Obstacle o){
+        this.o=o;
+        this.obstacles=obstacles;
+    }
+
+    @Override
+    void undo() {
+       obstacles.remove(o);
+
+    }
+    @Override
+    void execute() {
+        obstacles.add(o);
+    }
+}
+
+class ObstacleEraseCommand extends ObstacleDrawCommand implements Serializable{
+    ArrayList<Obstacle> obstacles;
+    Obstacle o;
+    ObstacleEraseCommand(ArrayList<Obstacle> obstacles, Obstacle o) {
+        super(obstacles,o);
+    }
+        @Override
+    void execute() {
+        super.undo();
+
+    }
+    @Override
+    void undo() {
+        super.execute();
+    }
 }
