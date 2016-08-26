@@ -1,5 +1,0 @@
-/home/krystian892/Downloads/Truss21/app/build/intermediates/classes/debug
-/home/krystian892/Downloads/Truss21/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-5060e5b84205bfb3dceae8b12265ab0cf668d6a9.jar
-/home/krystian892/Downloads/Truss21/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-f988d3efd15d3d806cc00e72a0b2a632210dd829.jar
-/home/krystian892/Downloads/Truss21/app/build/intermediates/pre-dexed/debug/classes-146393d95cd18a4a2f6163c415629b41e98530bb.jar
-/home/krystian892/Downloads/Truss21/app/build/intermediates/pre-dexed/debug/classes-8ad1cea640ba8fe3cfac00f2a417b456e45b39ee.jar

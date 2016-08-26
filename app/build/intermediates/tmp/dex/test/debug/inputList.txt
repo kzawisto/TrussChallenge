@@ -1,1 +1,0 @@
-/home/krystian892/Downloads/Truss21/app/build/intermediates/classes/test/debug
