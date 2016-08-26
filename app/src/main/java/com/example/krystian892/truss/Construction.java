@@ -34,6 +34,7 @@ public class Construction implements Serializable {
     double displ=0;
     double maxforce =0;
     boolean rawres =false;
+    String levelname;
    //transient double displacement;
     public boolean calculationsStarted = false;
 
@@ -45,6 +46,7 @@ public class Construction implements Serializable {
 
     Matrix transitionsMatrix() {
         Matrix m1 = new Matrix(rods.size(), joints.size() * 2);
+
         m1.fillWithZeros();
         for (int j = 0; j < rods.size(); ++j) {
             //	Log.e("ids",""+ rods.get(j).id1+ "  " + rods.get(j).id2);
@@ -57,7 +59,7 @@ public class Construction implements Serializable {
                 m1.array[j][rods.get(j).id2 * 2 + 1] = -rods.get(j).sinPhi();
             }
         }
-
+        Log.wtf("Transition matrix",m1.display());
         return m1;
     }
 
@@ -72,7 +74,7 @@ public class Construction implements Serializable {
             m1.array[0][f.jointId * 2 + 1] += f.end.y - f.start.y;
         }
         //Log.wtf("LOADS","LOADS");
-        //sm1.display();
+        Log.wtf("Load matrix",m1.display());
         return m1;
     }
 
@@ -84,15 +86,17 @@ public class Construction implements Serializable {
             for (int b = 0; b < joints.size() * 2; ++b)
                 m2.array[b][a] /= (rods.get(a).length() / 100.0);
 
-        Matrix.cauchyProduct(m1, m2).displayMaxima();
-
         m3 = (new MatrixInverse(Matrix.cauchyProduct(m1, m2))).result();
-
+       // Log.wtf("m3 inverse", m3.display());
         //m4 = Matrix.cauchyProduct(m2, m3);
         transitions = Matrix.cauchyProduct(m3, calculateLoadMatrix());
-       // transitions.display();
         for(int a =0;a<joints.size();++a){
-            if(Double.isNaN(transitions.array[0][2*a]) || Double.isNaN(transitions.array[0][2*a+1])) return false;
+            if(Double.isNaN(transitions.array[0][2*a]) || Double.isNaN(transitions.array[0][2*a+1])) {
+
+
+                Toast.makeText(ActivitySingleton.getActivity(), "Calculation error.",Toast.LENGTH_SHORT).show();
+                return false;
+            }
             joints.get(a).displacement.set(transitions.array[0][2*a], transitions.array[0][2*a+1]);
         }
         tensions = Matrix.cauchyProduct(m2, transitions);

@@ -336,7 +336,7 @@ class GameView extends MainEditorView{
     void setConstr(Construction constr){
         super.setConstr(constr);
         int size =(scene.size.x / 50);
-
+        constr.levelname = levelname;
         cost = new CostIndicator(constr);
     }
     @Override
@@ -347,12 +347,19 @@ class GameView extends MainEditorView{
         doNotificationAnimations();
 
     }
+    void addCompletionMedal(){
+        String cos = cost.getResultCost(), res = cost.getResultResilience();
+        if(cos!="failure" && res != "failure"){
+            AchievementsDbAccess.addMedalAchievements(getContext(), cos+"_medal_cost",res+"_medal_resilience",levelname);
+        }
+    }
     void doNotificationAnimations(){
         final ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
         exec.schedule(new Runnable(){
             @Override
             public void run(){
                 cost.setNotification(Rod.maxforce);
+                addCompletionMedal();
                 updateGUI();
             }
         }, 1, TimeUnit.SECONDS);
@@ -379,6 +386,7 @@ class GameView extends MainEditorView{
                 updateGUI();
             }
         }, 11, TimeUnit.SECONDS);
+
     }
     @Override
     protected void onDraw(Canvas canvas) {
@@ -398,7 +406,7 @@ class  CostIndicator{
     greenBig =new Paint();
     Paint currentPaint = black;
     Paint testPaint, resiliencePaint, costPaint;
-    String currentString, result1, result2, result3;
+    String currentString, result1, resultResilience, resultCost;
     void selectPaint(Paint paint, String str){
       //  currentString += str;
         currentPaint = paint;
@@ -445,9 +453,9 @@ class  CostIndicator{
         if(displayNotification)
             canvas.drawText(result1, (float)position.x*0.05f,(float)position.y*0.75f,testPaint);
        if(displayStrength)
-            canvas.drawText(result2, (float)position.x*0.05f,(float)position.y*0.75f+1.5f*sizeBig,resiliencePaint);
+            canvas.drawText(resultResilience, (float)position.x*0.05f,(float)position.y*0.75f+1.5f*sizeBig,resiliencePaint);
        if(displayCostResult)
-            canvas.drawText(result3, (float)position.x*0.05f,(float)position.y*0.75f+3*sizeBig,costPaint);
+            canvas.drawText(resultCost, (float)position.x*0.05f,(float)position.y*0.75f+3*sizeBig,costPaint);
 
 
    }
@@ -469,22 +477,22 @@ class  CostIndicator{
    }
    void setResultForResilience(double maxForce, double forceLimit){
        double score =forceLimit/maxForce;
-       result2 = "Strength:" +Double.toString( Math.round(100*score))+"%, ";
-       if(score < 1.0) { result2  += "Failure :("; resiliencePaint = redBig;}
-       if(score >= 1.0 && score < 1.15) { result2  += "Fair."; resiliencePaint = bronzeBig;}
-       if(score >= 1.15 && score < 1.3) { result2  += "Good!"; resiliencePaint = silverBig;}
-       if(score >= 1.3 && score < 1.5) { result2  += "Excellent!"; resiliencePaint = goldBig;}
-       if(score >= 1.5 ) { result2  += "Outstanding!!!"; resiliencePaint = platBig;}
+       resultResilience = "Strength:" +Double.toString( Math.round(100*score))+"%, ";
+       if(score < 1.0) { resultResilience += "Failure :("; resiliencePaint = redBig;}
+       if(score >= 1.0 && score < 1.15) { resultResilience += "Fair."; resiliencePaint = bronzeBig;}
+       if(score >= 1.15 && score < 1.3) { resultResilience += "Good!"; resiliencePaint = silverBig;}
+       if(score >= 1.3 && score < 1.5) { resultResilience += "Excellent!"; resiliencePaint = goldBig;}
+       if(score >= 1.5 ) { resultResilience += "Outstanding!!!"; resiliencePaint = platBig;}
 
    }
     void setResultForCost(double cost, double costLimit){
         double score =cost/costLimit;
-        result3 = "Cost:" +Double.toString( Math.round(100*score))+"%, ";
-        if(score > 1.0) { result3  += "Failure :("; costPaint = redBig;}
-        if(score <= 1.0 && score > 0.9) { result3  += "Fair."; costPaint = bronzeBig;}
-        if(score <= 0.9 && score > 0.75) { result3  += "Good!"; costPaint = silverBig;}
-        if(score <= 0.75 && score > 0.6) { result3  += "Excellent!"; costPaint = goldBig;}
-        if(score <=0.6 ) { result3  += "Outstanding!!!"; costPaint = platBig;}
+        resultCost = "Cost:" +Double.toString( Math.round(100*score))+"%, ";
+        if(score > 1.0) { resultCost += "Failure :("; costPaint = redBig;}
+        if(score <= 1.0 && score > 0.9) { resultCost += "Fair."; costPaint = bronzeBig;}
+        if(score <= 0.9 && score > 0.75) { resultCost += "Good!"; costPaint = silverBig;}
+        if(score <= 0.75 && score > 0.6) { resultCost += "Excellent!"; costPaint = goldBig;}
+        if(score <=0.6 ) { resultCost += "Outstanding!!!"; costPaint = platBig;}
 
     }
     void resize(int size1, int size2){
@@ -501,6 +509,20 @@ class  CostIndicator{
         bronzeBig.setTextSize(sizeBig);
         redBig.setTextSize(sizeBig);
         greenBig.setTextSize(sizeBig);
+    }
+    String getResultCost(){
+        return getResultForString(resultCost);
+    }
+    String getResultResilience(){
+       return getResultForString(resultResilience);
+    }
+    String getResultForString(String result){
+        if(result.contains("Failure")) return "failure";
+        if(result.contains("Fair"))return "bronze";
+        if(result.contains("Good"))return "silver";
+
+        if(result.contains("Excellent"))return "gold";
+        return "platinum";
     }
 }
 

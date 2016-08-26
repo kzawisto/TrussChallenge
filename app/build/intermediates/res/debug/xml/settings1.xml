@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <CheckBoxPreference android:key = "hints"
+        android:title="@string/hints_title"
+		android:summary="@string/hints_summary"
+		android:defaultValue="true" />
+    <CheckBoxPreference android:key = "action_bar"
+        android:title="@string/action_bar_title"
+        android:summary="@string/action_bar_summary"
+        android:defaultValue="true" />
+    <CheckBoxPreference android:key = "status_bar"
+        android:title="@string/status_bar_title"
+        android:summary="@string/status_bar_summary"
+        android:defaultValue="true" />
+    <CheckBoxPreference android:key = "deflection_enabled"
+        android:title="Enable deformation"
+        android:summary="Show deformation animation, when the  calculation is triggered"
+        android:defaultValue="true" />
+    <com.example.krystian892.truss.NumPicker android:key="deflection"
+        android:title="Deformation scale"
+        android:summary="Decide how large deformation is"
+        android:progress="10"
+        ></com.example.krystian892.truss.NumPicker>
+    <com.example.krystian892.truss.NumPicker android:key="animation_time"
+        android:title="Animation time"
+        android:summary="Decide how long animation is"
+        android:progress="150"
+        ></com.example.krystian892.truss.NumPicker>
+</PreferenceScreen>
+<!-- From: file:/home/krystian892/Downloads/Truss21/app/src/main/res/xml/settings1.xml -->

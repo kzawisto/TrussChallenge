@@ -46,7 +46,7 @@ class AchievementsDbAccess extends  DbAccess {
     public static final DbColumn ID = new DbColumn("_id", "INTEGER PRIMARY KEY AUTOINCREMENT",0);
     public static final DbColumn COUNTER = new DbColumn("_counter", "INTEGER",1);
     public static final DbColumn NAME = new DbColumn("_name", "TEXT NOT NULL",2);
-    public static final DbColumn FOR_LEVEL = new DbColumn("_for_level", "TEXT NOT NULL",2);
+    public static final DbColumn FOR_LEVEL = new DbColumn("_for_level", "TEXT NOT NULL",3);
     public static DbColumn array[] = {ID,COUNTER,NAME,FOR_LEVEL};
     private SQLiteDatabase db;
 
@@ -114,6 +114,25 @@ class AchievementsDbAccess extends  DbAccess {
         ada.close();
         //Assert.assertFalse();
     }
+    static void addMedalAchievements(Context context,String cost, String resilience,String level){
+        AchievementsDbAccess ada = new AchievementsDbAccess(context);
+        ada.open();
+        ada.insertAchievement(cost,level);
+        ada.insertAchievement(resilience,level);
+        //ada.writeToLog();
+        ada.close();
+    }
+    void writeToLog(){
+        String columns [] = {NAME.getName(), FOR_LEVEL.getName()};
+
+        Cursor c=db.query(TABLE_NAME, columns,null,null, null, null, null);
+        c.moveToFirst();
+        while( !c.isAfterLast()) {
+            Log.wtf("AchievementsDBAccess", c.getString(0) + " " + c.getString(1));
+            c.moveToNext();
+        }
+    }
+
 }
 
 

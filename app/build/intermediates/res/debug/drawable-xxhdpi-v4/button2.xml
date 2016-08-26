@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+    <stroke android:width="3dp"
+        android:color="#80FFFFFF" />
+
+    <corners android:radius="25dp" />
+
+    <gradient android:angle="270"
+        android:centerColor="#FF990000"
+        android:endColor="#33150517"
+        android:startColor="#33150517" />
+</shape><!-- From: file:/home/krystian892/Downloads/Truss21/app/src/main/res/drawable-xxhdpi/button2.xml -->

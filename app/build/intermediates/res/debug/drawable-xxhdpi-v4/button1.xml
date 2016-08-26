@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+      <item android:drawable="@drawable/button_white_click" android:state_pressed="true"/>
+      <item android:drawable="@drawable/button_white"/>
+</selector><!-- From: file:/home/krystian892/Downloads/Truss21/app/src/main/res/drawable-xxhdpi/button1.xml -->

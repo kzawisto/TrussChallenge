@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.krystian892.truss.MainActivity2">
+
+
+    <item android:id="@+id/action_rod" android:title= "Rod" app:showAsAction="always" android:icon="@drawable/steel">
+    </item>
+    <item android:id="@+id/action_force" android:title= "Force" app:showAsAction="always" android:icon="@drawable/arrow">
+    </item>
+    <item android:id="@+id/action_support" android:title= "Support" app:showAsAction="always" android:icon="@drawable/cube">
+    </item>
+    <item android:id="@+id/action_eraser" android:title= "Eraser" app:showAsAction="always" android:icon="@drawable/eraser">
+    </item>
+    <item android:id="@+id/action_simulate" android:title= "Simulate" app:showAsAction="always" android:icon="@drawable/play">
+    </item>
+
+    <item android:id="@+id/action_undo" android:title= "Undo" app:showAsAction="always" android:icon="@drawable/undo">
+        </item>
+    <item android:id="@+id/action_redo" android:title= "Redo" app:showAsAction="always" android:icon="@drawable/redo">
+    </item>
+
+    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" app:showAsAction="never" />
+
+</menu>
+<!-- From: file:/home/krystian892/Downloads/Truss21/app/src/main/res/menu/main.xml -->

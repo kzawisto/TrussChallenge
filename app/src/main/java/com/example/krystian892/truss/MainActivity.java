@@ -31,7 +31,6 @@ public class MainActivity extends Activity implements OnClickListener{
 		prefsButton.setOnClickListener((OnClickListener) this);
         View gameButton = findViewById(R.id.game_button);
         gameButton.setOnClickListener((OnClickListener) this);
-
         View loadGameButton = findViewById(R.id.loadgame_button);
         loadGameButton.setOnClickListener((OnClickListener) this);
 

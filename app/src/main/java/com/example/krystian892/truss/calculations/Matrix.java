@@ -64,13 +64,15 @@ public class Matrix {
 				m1.array[b][a] = array[a][b];
 		return m1;
 	}
-	public void display(){
-		
+	public String display(){
+		String s1="";
 		for(int a =0;a <n;++a){
 		String s = "";
 		for(int b =0;b<m;++b)s+=String.format("%.3f",array[a][b])+" ";
 		//Log.wtf("row " + a,s);
+            s1+=s+"\n";
 		}
+		return s1;
 		
 	}
 	public void displayMaxima(){

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.krystian892.truss"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="21" />
+
+    <android:uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="21" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="21" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="TrussSimulator"
+        android:theme="@style/Theme.AppCompat.Light" >
+        <activity
+            android:name="com.example.krystian892.truss.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.krystian892.truss.About"
+            android:label="@string/about_label" >
+        </activity>
+        <activity
+            android:name="com.example.krystian892.truss.Prefs"
+            android:label="@string/prefs_label" >
+        </activity>
+        <activity
+            android:name="com.example.krystian892.truss.GameSelectActivity"
+            android:theme="@style/Theme.AppCompat.Light" >
+        </activity>
+        <activity android:name="com.example.krystian892.truss.GameScreen" >
+        </activity>
+        <activity
+            android:name="com.example.krystian892.truss.FileLoadActivity"
+            android:theme="@style/Theme.AppCompat.Light" >
+        </activity>
+        <activity
+            android:name="com.example.krystian892.truss.LoadGameActivity"
+            android:theme="@style/Theme.AppCompat.Light" >
+        </activity>
+        <activity
+            android:name="com.example.krystian892.truss.SelectSavedGameActivity"
+            android:theme="@style/Theme.AppCompat.Light" >
+        </activity>
+        <activity
+            android:name="com.example.krystian892.truss.FileDeleteActivity"
+            android:theme="@style/Theme.AppCompat.Light" >
+        </activity>
+        <activity
+            android:name="com.example.krystian892.truss.MainActivity2"
+            android:label="@string/title_activity_main"
+            android:parentActivityName="com.example.krystian892.truss.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.krystian892.truss.MainActivity" />
+        </activity>
+    </application>
+
+</manifest>

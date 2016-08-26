@@ -13,7 +13,7 @@ public class MatrixInverse extends Matrix {
 		triangularToDiagonal();
 		diagonalToUnit();
 		fixPositions();
-		display();
+		//display();
 	}
 	Matrix inverse()	{
 		Matrix result = new Matrix(n,n);
@@ -24,13 +24,15 @@ public class MatrixInverse extends Matrix {
 	public Matrix result(){
 		return result;
 	}
-	public void display(){
-		
+	public String display(){
+		String s1="";
 		for(int a =0;a <n;++a){
 		String s = "";
 		for(int b =0;b<n;++b)s+=String.format("%.3f", result.array[b][pos.tab[a] ])+" ";
 		//Log.wtf("",s);
+			s1+=s+"\n";
 		}
+		return  s1;
 	}
 	void makeTriangular()	{
 		for(int a=0; a<n;++a) {
@@ -69,7 +71,7 @@ public class MatrixInverse extends Matrix {
 		Matrix m1 = new Matrix(result.m, result.n);
 		for(int a =0;a < m1.n;++a)
 			for(int b =0;b < m1.m;++b)
-				m1.array[a][b] = result.array[a][pos.tab[b]];
+				m1.array[a][pos.tab[b]] = result.array[a][b];
 		result = m1;
 	}
 	private class PositionTable
